@@ -1,7 +1,7 @@
 {
-  "name": "todomvc-flux",
+  "name": "tasksmvc-flux",
   "version": "0.0.1",
-  "description": "Example Flux architecture.",
+  "description": "Example Flux architecture with simple Tasks.",
   "main": "js/app.js",
   "dependencies": {
     "es6-promise": "~0.1.1",
