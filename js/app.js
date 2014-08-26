@@ -11,9 +11,9 @@
 
 var React = require('react');
 
-var TestApp = require('./components/TestApp.react');
+var MainApp = require('./components/MainApp.react');
 
 React.renderComponent(
-  <TestApp />,
+  <MainApp />,
   document.getElementById('tasksapp')
 );

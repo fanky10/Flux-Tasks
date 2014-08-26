@@ -14,7 +14,7 @@ var React = require('react');
 var Header = require('./Header.react');
 var Footer = require('./Footer.react');
 
-var TestApp = React.createClass({
+var MainApp = React.createClass({
     /**
      * @return {object}
      */
@@ -37,4 +37,4 @@ var TestApp = React.createClass({
 
 );
 
-module.exports = TestApp;
+module.exports = MainApp;
