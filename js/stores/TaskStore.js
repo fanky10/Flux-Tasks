@@ -37,20 +37,20 @@ var TaskStore = merge(EventEmitter.prototype, {
         }
     },
     destroy: function(id) {
-        if (this.tasks[id]) {
-            delete this.tasks[id];
+        if (tasks[id]) {
+            delete tasks[id];
         }
     },
     destroyCompleted: function() {
         for (var id in tasks) {
             if (tasks[id] && tasks[id].complete) {
-                destroy(id);
+                this.destroy(id);
             }
         }
     },
     areAllComplete: function() {
-        for (var id in _todos) {
-            if (!_todos[id].complete) {
+        for (var id in tasks) {
+            if (!tasks[id].complete) {
                 return false;
             }
         }
