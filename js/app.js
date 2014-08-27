@@ -12,6 +12,7 @@
 var React = require('react');
 
 var MainApp = require('./components/MainApp.react');
+var Footer = require('./components/Footer.react');
 
 React.renderComponent(
   <MainApp />,

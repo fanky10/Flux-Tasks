@@ -19,7 +19,7 @@ var Header = React.createClass({
   render: function() {
     return (
       <header id="header">
-        <h1>Tasks To be Done</h1>
+        <h2>Tasks To be Done</h2>
       </header>
     );
   }

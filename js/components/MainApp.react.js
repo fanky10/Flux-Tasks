@@ -12,7 +12,6 @@
 
 var React = require('react');
 var Header = require('./Header.react');
-var Footer = require('./Footer.react');
 
 var MainApp = React.createClass({
     /**
@@ -20,16 +19,15 @@ var MainApp = React.createClass({
      */
     render: function() {
         return (
-                <div>
-                    <Header />
-                    <section id="main">
-                        <ul>
-                            <li>Item 1</li>
-                            <li>Item 2</li>
-                            <li>Item 3</li>
+                <div className="row">
+                    <Header className="col-lg-12" />
+                    <section id="main" className="col-lg-4">
+                        <ul className="list-group">
+                            <li className="list-group-item">Item 1</li>
+                            <li className="list-group-item">Item 2</li>
+                            <li className="list-group-item">Item 3</li>
                         </ul>
                     </section>
-                    <Footer />
                 </div>
                 );
     }

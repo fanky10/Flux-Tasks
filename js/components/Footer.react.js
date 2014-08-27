@@ -10,7 +10,6 @@
  */
 
 var React = require('react');
-var ReactPropTypes = React.PropTypes;
 
 var Footer = React.createClass({
 
@@ -19,9 +18,9 @@ var Footer = React.createClass({
    */
   render: function() {
     return (
-      <footer id="footer">
+      <div className="row">
         All rights reserved.
-      </footer>
+      </div>
     );
   }
 
