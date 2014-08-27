@@ -21,7 +21,8 @@ var TaskStore = merge(EventEmitter.prototype, {
     },
     
     findOne: function(id) {
-        return this.tasks[id];
+        id = parseInt(id);
+        return tasks[id];
     },
     /**
      * Update a TODO item.
@@ -41,7 +42,7 @@ var TaskStore = merge(EventEmitter.prototype, {
      */
     updateAll: function(updates) {
         for (var id in tasks) {
-            update(id, updates);
+            this.update(id, updates);
         }
     },
     /**
@@ -80,7 +81,7 @@ var TaskStore = merge(EventEmitter.prototype, {
      * @return {object}
      */
     getAll: function() {
-        return this.tasks;
+        return tasks;
     },
     emitChange: function() {
         this.emit(CHANGE_EVENT);
