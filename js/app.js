@@ -14,6 +14,9 @@ var React = require('react');
 var MainApp = require('./components/MainApp.react');
 var Footer = require('./components/Footer.react');
 
+var OutlineWebAPIUtils = require('./util/OutlineWebAPIUtils');
+OutlineWebAPIUtils.getAllTasks();
+
 React.renderComponent(
   <MainApp />,
   document.getElementById('tasksapp')

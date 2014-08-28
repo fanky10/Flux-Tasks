@@ -1,9 +1,11 @@
 var EventEmitter = require('events').EventEmitter;
 var merge = require('react/lib/merge');
 
+var AppDispatcher = require('../dispatcher/AppDispatcher');
+
 var CHANGE_EVENT = 'change';
 
-var tasks = [], lastId = 0;
+var tasks = {}, lastId = 0;
 var TaskStore = merge(EventEmitter.prototype, {
     create: function(text, estimatedTime) {
         // work with auto generated id
@@ -74,6 +76,25 @@ var TaskStore = merge(EventEmitter.prototype, {
     removeChangeListener: function(callback) {
         this.removeListener(CHANGE_EVENT, callback);
     }
+});
+
+TaskStore.dispatchToken = AppDispatcher.register(function(payload) {
+    var action = payload.action;
+    switch (action.type) {
+
+        case "RECEIVE_TASKS":
+            console.log("recieving tasks!");
+            tasks = action.tasks;
+            break;
+    }
+
+    // This often goes in each case that should trigger a UI change. This store
+    // needs to trigger a UI change after every view action, so we can make the
+    // code less repetitive by putting it here.  We need the default case,
+    // however, to make sure this only gets called after one of the cases above.
+    TodoStore.emitChange();
+
+    return true; // No errors.  Needed by promise in Dispatcher.
 });
 
 module.exports = TaskStore;

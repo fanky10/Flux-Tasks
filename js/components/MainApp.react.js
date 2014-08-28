@@ -11,28 +11,43 @@
  */
 
 var React = require('react');
+var ReactPropTypes = React.PropTypes;
 var Header = require('./Header.react');
 
 var MainApp = React.createClass({
+
+    propTypes: {
+        allTasks: ReactPropTypes.object.isRequired,
+        areAllComplete: ReactPropTypes.bool.isRequired
+    },
     /**
      * @return {object}
      */
     render: function() {
+        // This section should be hidden by default
+        // and shown when there are todos.
+        if (Object.keys(this.props.allTasks).length < 1) {
+          return null;
+        }
+
+        var allTasks = this.props.allTasks;
+        var tasks = [];
+
+        for (var key in allTasks) {
+            todos.push(<li id={key} > {allTodos[key]} </li>);
+        }
+
         return (
-                <div className="row">
-                    <Header className="col-lg-12" />
-                    <section id="main" className="col-lg-4">
-                        <ul className="list-group">
-                            <li className="list-group-item">Item 1</li>
-                            <li className="list-group-item">Item 2</li>
-                            <li className="list-group-item">Item 3</li>
-                        </ul>
-                    </section>
-                </div>
+                < div className = "row" >
+                < Header className = "col-lg-12" />
+                < section id = "main" className = "col-lg-4" >
+                < ul className = "list-groupy" >
+                {taks}
+                < /ul>
+                < /section>
+                < /div>
                 );
     }
-}
 
-);
-
+});
 module.exports = MainApp;
