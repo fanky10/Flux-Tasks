@@ -13,28 +13,43 @@
 var React = require('react');
 var ReactPropTypes = React.PropTypes;
 var Header = require('./Header.react');
+var TaskStore = require('../stores/TaskStore');
+
+/**
+ * Retrieve the current TODO data from the TodoStore
+ */
+function getTasksState() {
+  return {
+    allTasks: TaskStore.getAll(),
+    areAllComplete: TaskStore.areAllComplete()
+  };
+}
 
 var MainApp = React.createClass({
-
-    propTypes: {
-        allTasks: ReactPropTypes.object.isRequired,
-        areAllComplete: ReactPropTypes.bool.isRequired
+    
+    getInitialState: function() {
+        return getTasksState();
     },
+
+//    propTypes: {
+//        allTasks: ReactPropTypes.object.isRequired,
+//        areAllComplete: ReactPropTypes.bool.isRequired
+//    },
     /**
      * @return {object}
      */
     render: function() {
         // This section should be hidden by default
         // and shown when there are todos.
-        if (Object.keys(this.props.allTasks).length < 1) {
+        if (Object.keys(this.state.allTasks).length < 1) {
           return null;
         }
 
-        var allTasks = this.props.allTasks;
+        var allTasks = this.state.allTasks;
         var tasks = [];
 
         for (var key in allTasks) {
-            todos.push(<li id={key} > {allTodos[key]} </li>);
+            tasks.push(<li id={key} > {allTasks[key]} </li>);
         }
 
         return (
@@ -42,7 +57,7 @@ var MainApp = React.createClass({
                 < Header className = "col-lg-12" />
                 < section id = "main" className = "col-lg-4" >
                 < ul className = "list-groupy" >
-                {taks}
+                {tasks}
                 < /ul>
                 < /section>
                 < /div>

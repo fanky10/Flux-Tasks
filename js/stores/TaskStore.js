@@ -92,7 +92,7 @@ TaskStore.dispatchToken = AppDispatcher.register(function(payload) {
     // needs to trigger a UI change after every view action, so we can make the
     // code less repetitive by putting it here.  We need the default case,
     // however, to make sure this only gets called after one of the cases above.
-    TodoStore.emitChange();
+    TaskStore.emitChange();
 
     return true; // No errors.  Needed by promise in Dispatcher.
 });
