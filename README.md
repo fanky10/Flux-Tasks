@@ -1,4 +1,4 @@
-# Flux TodoMVC Example
+# Flux Tasks Example
 
 > An application architecture for React utilizing a unidirectional data flow.
 
@@ -67,68 +67,9 @@ Occasionally we may need to add additional controller-views deeper in the hierar
 
 ### Actions and Action Creators
 
-The dispatcher exposes a method that allows a view to trigger a dispatch to the stores, and to include a payload of data.  This data payload contains an action, an object literal containing the various fields of data and a specific action type. The action construction may be wrapped into a semantic helper method, which we refer to as action creators. These methods provide the payload to the dispatcher. For example, we may want to change the text of a to-do item in a to-do list application. We would create an action creator method like `updateText(todoId, newText)` in our `TodoActions` module. This method may be invoked from within our views' event handlers, so we can call it in response to a user interaction. The action creator method also adds the type to the action, so that when the payload is interpreted in the store, it can respond appropriately to a payload with a particular action type. In our example, this type might be named something like `TODO_UPDATE_TEXT`.
+The dispatcher exposes a method that allows a view to trigger a dispatch to the stores, and to include a payload of data.  This data payload contains an action, an object literal containing the various fields of data and a specific action type. The action construction may be wrapped into a semantic helper method, which we refer to as action creators. These methods provide the payload to the dispatcher.
 
 Actions may also come from other places, such as the server. This happens, for example, during data initialization. It may also happen when the server returns an error code or when the server has updates to provide to the application. We'll talk more about server actions in a future article. In this example application we're only concerned with the basics of the data flow.
-
-
-### What About that Dispatcher?
-
-As mentioned earlier, the dispatcher is also able to manage dependencies between stores. This functionality is available through the Dispatcher's `waitFor()` method.  The TodoMVC application is extremely simple, so we did not need to use this method, but in a larger, more complex application, this method becomes vital.
-
-Within the TodoStore's registered callback we can explicitly wait for any dependencies to first update before moving forward:
-
-```
-case 'TODO_CREATE':
-  Dispatcher.waitFor([
-    PrependedTextStore.dispatchToken,
-    YetAnotherStore.dispatchToken
-  ]);
-  TodoStore.create(PrependedTextStore.getText() + ' ' + action.text);
-  TodoStore.emit('change');
-  break;
-```
-
-The arguments for `waitFor()` are an array of dipatcher registry indexes, which we refer to here as each store's dispatchToken. When waitFor() is encountered in a callback, it tells the Dispatcher to invoke the callbacks for the required stores. After these callbacks complete, the original callback can continue to execute. Thus the store that is invoking `waitFor()` can depend on the state of another store to inform how it should update its own state.
-
-A problem arises if we create circular dependencies. If Store A waits for Store B, and B waits for A, then we could wind up in an endless loop. The Dispatcher will flag these circular dependencies with console errors.
-
-
-## TodoMVC Example Implementation
-
-In this TodoMVC example application, we can see the elements of Flux in our directory structure. Views here are referred to as "components" as they are React components.
-
-<pre>
-./
-  index.html
-  js/
-    actions/
-      TodoActions.js
-    app.js
-    bundle.js
-    dispatcher/
-      AppDispatcher.js
-      Dispatcher.js
-    components/
-      Footer.react.js
-      Header.react.js
-      MainSection.react.js
-      TodoApp.react.js
-      TodoItem.react.js
-      TodoTextInput.react.js
-    stores/
-      TodoStore.js
-</pre>
-
-The primary entry point into the application is app.js.  This file bootstraps the React rendering inside of index.html.  TodoApp.js is our controller-view and it passes all data down into its child React components.
-
-TodoActions.js is a collection of action creator methods that views may call from within their event handlers, in response to user interactions.  They are nothing more than helpers that call into the AppDispatcher.
-
-Dispatcher.js is a base class for AppDispatcher.js which extends it with a small amount of application-specific code.
-
-TodoStore.js is our only store.  It provides all of the application logic and in-memory storage.  Based on EventEmitter from Node.js, it emits "change" events after responding to actions in the callback it registers with the dispatcher.
-
-The bundle.js file is automatically genenerated by the build process, explained below.
 
 
 ## Running
@@ -146,13 +87,5 @@ To build the project, first run this command:
 
 This will perform an initial build and start a watcher process that will update build.js with any changes you wish to make.  This watcher is based on [Browserify](http://browserify.org/) and [Watchify](https://github.com/substack/watchify), and it transforms React's JSX syntax into standard JavaScript with [Reactify](https://github.com/andreypopp/reactify).
 
-To run the app, spin up an HTTP server and visit http://localhost/.../todomvc-flux/.  Or simply open the index.html file in a browser.
+Simply open the index.html file in a browser.
 
-
-## Credit
-
-This TodoMVC application was created by [Bill Fisher](https://www.facebook.com/bill.fisher.771).  This README document was written by Bill Fisher and the principal creator of Flux, [Jing Chen](https://www.facebook.com/jing).
-
-
-## License
-Flux is BSD-licensed. We also provide an additional patent grant.
