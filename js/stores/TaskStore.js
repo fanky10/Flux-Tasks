@@ -83,7 +83,6 @@ TaskStore.dispatchToken = AppDispatcher.register(function(payload) {
     switch (action.type) {
 
         case "RECEIVE_TASKS":
-            console.log("recieving tasks!");
             tasks = action.tasks;
             break;
     }

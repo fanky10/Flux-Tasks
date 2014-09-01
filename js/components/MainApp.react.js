@@ -31,10 +31,6 @@ var MainApp = React.createClass({
         return getTasksState();
     },
 
-//    propTypes: {
-//        allTasks: ReactPropTypes.object.isRequired,
-//        areAllComplete: ReactPropTypes.bool.isRequired
-//    },
     /**
      * @return {object}
      */
